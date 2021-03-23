@@ -5,7 +5,7 @@ const passwordConfirm = document.getElementById("password2")
 const submit = document.getElementById("submit")
 let gender = form.elements['gender']
 
-
+// function for showing errors
 function showError(input, msg) {
     const formControl = input.parentElement
     formControl.className = "form-control error"
@@ -14,12 +14,15 @@ function showError(input, msg) {
     // return false
 }
 
+// function for showing success
 function showSuccess(input) {
     const formControl = input.parentElement
     formControl.className = "form-control success"
     // return true
 }
 
+
+// check inputs length
 function checkLength(input, min, max) {
     if (input.value.length < min) {
         showError(input, `Your password must be at least ${min}`)
@@ -33,6 +36,7 @@ function checkLength(input, min, max) {
     }
 }
 
+//check passwords
 function checkPasswords(input1, input2) {
     if (input1.value !== input2.value) {
         showError(input2, "Passwords dont match")
@@ -42,7 +46,9 @@ function checkPasswords(input1, input2) {
     }
 }
 
-form.addEventListener('submit',  (e) => {
+
+//event listener on submit
+form.addEventListener('submit',  (e)=> {
     e.preventDefault();
 
     if (
@@ -50,7 +56,7 @@ form.addEventListener('submit',  (e) => {
         checkLength(password, 6, 12) &&
         checkLength(userName, 5, 15)
     ) {
-        console.log("hello")
+        // console.log("hello")
         fetch("http://localhost:3000/users", {
         method: "POST",
         body: JSON.stringify({
@@ -63,7 +69,8 @@ form.addEventListener('submit',  (e) => {
         }
     })
         .then(res => res.json())
-        .then(res => console.log(res))
+        .then(data => window.location.replace("users.html"))
         .catch(rej => console.error(rej))
     }
 })
+
